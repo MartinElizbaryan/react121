@@ -1,61 +1,84 @@
 import { useState } from "react";
-import { greaterOrEqualZero } from "./helpers.js";
+import { greaterOrEqualZero, getYear } from "./helpers.js";
 // import * as x from "./helpers.js";
 
 const App = () => {
-  const [count, setCount] = useState(7);
-  const [title, setTitle] = useState("Count");
-  const arr = [1, 2, 3];
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [age, setAge] = useState("");
+  const [users, setUsers] = useState([]);
 
-  const handleClick = (value) => {
-    const result = count + value;
-
-    // if (greaterOrEqualZero(result)) {
-    //   setCount(result);
-    // } else {
-    //   setCount(0);
-    // }
-
-    setCount(greaterOrEqualZero(result) ? result : 0);
+  const handleChangeName = (e) => {
+    setName(e.target.value);
   };
 
-  const handleChange = (e) => {
-    setTitle(e.target.value);
+  const handleChangeSurname = (e) => {
+    setSurname(e.target.value);
+  };
+
+  const handleChangeAge = (e) => {
+    setAge(e.target.value);
+  };
+
+  const resetInputValues = () => {
+    setName("");
+    setSurname("");
+    setAge("");
+  };
+
+  const onSave = () => {
+    const newUser = {
+      name,
+      surname,
+      year: getYear(age),
+    };
+
+    setUsers([...users, newUser]);
+
+    resetInputValues();
   };
 
   return (
     <div>
-      <button style={{ marginRight: 4 }} onClick={() => handleClick(1)}>
-        +1
-      </button>
+      <input
+        style={{ marginRight: 4 }}
+        value={name}
+        onChange={handleChangeName}
+      />
+      <input
+        style={{ marginRight: 4 }}
+        value={surname}
+        onChange={handleChangeSurname}
+      />
+      <input
+        style={{ marginRight: 4 }}
+        value={age}
+        onChange={handleChangeAge}
+      />
 
-      <button style={{ marginRight: 4 }} onClick={() => handleClick(5)}>
-        +5
-      </button>
-
-      <button style={{ marginRight: 4 }} onClick={() => handleClick(10)}>
-        +10
-      </button>
-
-      <button style={{ marginRight: 4 }} onClick={() => handleClick(-5)}>
-        -5
-      </button>
-
-      <input style={{ marginRight: 4 }} value={title} onChange={handleChange} />
+      <button onClick={onSave}>Save</button>
 
       <br />
-      <span>
-        {title}: {count}
-        <br />
-        {arr.map((val) => {
+
+      <table border={1}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+
+        {users.map((user) => {
           return (
-            <div>
-              <h1>{val}</h1>
-              <h2>{val}</h2>
-            </div>
+            <tr>
+              <td>{user.name}</td>
+              <td>{user.surname}</td>
+              <td>{user.year}</td>
+            </tr>
           );
         })}
-      </span>
+      </table>
     </div>
   );
 };
