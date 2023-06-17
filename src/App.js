@@ -7,9 +7,21 @@ const App = () => {
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
   const [users, setUsers] = useState([]);
+  const [hasError, setHasError] = useState(false);
+
+  const [errorName, setErrorName] = useState("");
 
   const handleChangeName = (e) => {
-    setName(e.target.value);
+    const newName = e.target.value;
+
+    if (newName.length < 3) {
+      setErrorName("Name must be at least 3 letter");
+      setHasError(true);
+    } else {
+      setErrorName("");
+      setHasError(false);
+    }
+    setName(newName);
   };
 
   const handleChangeSurname = (e) => {
@@ -27,34 +39,45 @@ const App = () => {
   };
 
   const onSave = () => {
-    const newUser = {
-      name,
-      surname,
-      year: getYear(age),
-    };
+    if (!hasError) {
+      const newUser = {
+        name,
+        surname,
+        year: getYear(age),
+      };
 
-    setUsers([...users, newUser]);
+      setUsers([...users, newUser]);
 
-    resetInputValues();
+      resetInputValues();
+    }
   };
 
   return (
     <div>
-      <input
-        style={{ marginRight: 4 }}
-        value={name}
-        onChange={handleChangeName}
-      />
-      <input
-        style={{ marginRight: 4 }}
-        value={surname}
-        onChange={handleChangeSurname}
-      />
-      <input
-        style={{ marginRight: 4 }}
-        value={age}
-        onChange={handleChangeAge}
-      />
+      <div>
+        <input
+          style={{ marginRight: 4 }}
+          value={name}
+          onChange={handleChangeName}
+        />
+        <div>{errorName}</div>
+      </div>
+
+      <div>
+        <input
+          style={{ marginRight: 4 }}
+          value={surname}
+          onChange={handleChangeSurname}
+        />
+      </div>
+
+      <div>
+        <input
+          style={{ marginRight: 4 }}
+          value={age}
+          onChange={handleChangeAge}
+        />
+      </div>
 
       <button onClick={onSave}>Save</button>
 
