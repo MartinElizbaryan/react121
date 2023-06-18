@@ -2,7 +2,9 @@ import useMainButton from "./useMainButton";
 
 const MainButton = (props) => {
   const { children, startIcon, endIcon, ...restProps } = props;
-  const { styles } = useMainButton(props);
+  const { styles, x } = useMainButton(props);
+
+  // console.log(x());
 
   return (
     <button style={styles.button} {...restProps}>

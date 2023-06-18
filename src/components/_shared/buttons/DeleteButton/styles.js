@@ -2,9 +2,9 @@ const styles = {
   button: {
     display: "flex",
     alignItems: "center",
-    background: "#0084ff",
+    background: "#ff0000",
     color: "#ffffff",
-    border: "1px solid #0084ff",
+    border: "1px solid #ff0000",
     padding: "5px 15px",
     borderRadius: 5,
     cursor: "pointer",

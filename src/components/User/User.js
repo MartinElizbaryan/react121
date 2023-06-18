@@ -1,23 +1,12 @@
-import Button from "../_shared/buttons/MainButton/MainButton";
-
-const styles = {
-  td: {
-    padding: "10px 20px",
-  },
-  redColor: {
-    color: "red",
-  },
-};
-
-const getAddress = (user) => {
-  return `${user.address.city} | ${user.address.city}`;
-};
+import { getAddress } from "../../helpers/user";
+import DeleteButton from "../_shared/buttons/DeleteButton/DeleteButton";
+import MainButton from "../_shared/buttons/MainButton/MainButton";
+import styles from "./styles";
+import useUser from "./useUser";
 
 const User = (props) => {
   const { user } = props;
-  console.log(user.website);
-
-  const save = () => localStorage.setItem(user.name, JSON.stringify(user));
+  const { saveUser, deleteUser, isInStorage } = useUser(props);
 
   return (
     <>
@@ -31,9 +20,15 @@ const User = (props) => {
       </td>
       <td style={styles.td}>{getAddress(user)}</td>
       <td style={styles.td}>
-        <Button onClick={save} startIcon={"+"}>
-          Save
-        </Button>
+        {!isInStorage ? (
+          <MainButton onClick={saveUser} startIcon={"+"}>
+            Save
+          </MainButton>
+        ) : (
+          <DeleteButton onClick={deleteUser} startIcon={"+"}>
+            Delete
+          </DeleteButton>
+        )}
       </td>
     </>
   );

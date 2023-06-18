@@ -1,10 +1,7 @@
 import styles from "./styles";
 
 const useMainButton = (props) => {
-  const x = () => {
-    return "x";
-  };
-  return { styles, x };
+  return { styles };
 };
 
 export default useMainButton;
