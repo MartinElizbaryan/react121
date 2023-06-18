@@ -13,6 +13,7 @@ const Users = (props) => {
           <th>Name</th>
           <th>Website</th>
           <th>Address</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
