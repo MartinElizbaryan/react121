@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import User from "../User/User.js";
 
 const Users = (props) => {
-  console.log(props);
-  //   console.log(props.users);
-
   const { users } = props;
+
+  const [usersFromStorage, setUsersFromStorage] = useState([]);
+
+  const getUsersFromStorage = () => {
+    const usersDataJSON = localStorage.getItem("users") || "[]";
+    const usersData = JSON.parse(usersDataJSON);
+    setUsersFromStorage(usersData);
+  };
+
+  useEffect(() => {
+    getUsersFromStorage();
+  }, []);
 
   return (
     <table border={1}>
@@ -20,7 +30,11 @@ const Users = (props) => {
       {users.map((user) => {
         return (
           <tr>
-            <User user={user} />
+            <User
+              user={user}
+              usersFromStorage={usersFromStorage}
+              getUsersFromStorage={getUsersFromStorage}
+            />
           </tr>
         );
       })}

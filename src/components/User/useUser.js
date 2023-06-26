@@ -1,19 +1,6 @@
-import { useEffect, useState } from "react";
-
 const useUser = (props) => {
-  const { user } = props;
-  const [usersFromStorage, setUsersFromStorage] = useState([]);
+  const { user, usersFromStorage, getUsersFromStorage } = props;
   console.log("render");
-
-  const getUsersFromStorage = () => {
-    const usersDataJSON = localStorage.getItem("users") || "[]";
-    const usersData = JSON.parse(usersDataJSON);
-    setUsersFromStorage(usersData);
-  };
-
-  useEffect(() => {
-    getUsersFromStorage();
-  }, []);
 
   const isInStorage = usersFromStorage.find((u) => u.id === user.id);
 
