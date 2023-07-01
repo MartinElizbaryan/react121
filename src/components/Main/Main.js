@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import Users from "../Users/Users";
-import EditUser from "../EditUser/EditUser";
+import Tasks from "../Tasks/Tasks";
+import AddComment from "../AddComment/AddComment";
+import useMain from "./useMain";
 
 const Main = () => {
-  const [id, setId] = useState(null);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    let usersData = localStorage.getItem("users");
-    setUsers(JSON.parse(usersData));
-    setId(1);
-  }, []);
+  const { tasks, taskId, setTaskId, showAddComment, setShowAddComment } =
+    useMain();
 
   return (
     <div>
-      <Users users={users} />
+      {/* <Filtering /> */}
+      <Tasks
+        tasks={tasks}
+        setShowAddComment={setShowAddComment}
+        setTaskId={setTaskId}
+      />
+      {/* <Create /> */}
 
-      <EditUser id={id} users={users} />
+      {showAddComment && <AddComment taskId={taskId} />}
     </div>
   );
 };

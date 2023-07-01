@@ -1,7 +1,12 @@
 import Main from "./components/Main/Main";
-import usersData from "./data/users";
+import tasksData from "./data/tasks";
 
-localStorage.setItem("users", JSON.stringify(usersData));
+// ! TODO make function for this
+// const tasksInStorage = localStorage.getItem("tasks");
+// if (tasksInStorage === null) {
+//   console.log(1);
+localStorage.setItem("tasks", JSON.stringify(tasksData));
+// }
 
 function App() {
   return <Main />;
